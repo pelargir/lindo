@@ -1,0 +1,81 @@
+= lindo
+
+Enables rendering of the body of an HTTP response from inside controller and
+integration tests. This makes it easy to diagnose problems when building
+assert_select statements or just sanity check the output of the test.
+
+== Installation
+  
+Install the gem directly:
+
+  sudo gem install adeptware-lindo --source=http://gems.github.com
+
+Or install the gem in your Rails project:
+
+  script/plugin install git://github.com/adeptware/lindo.git
+
+Then require lindo in your test_helper.rb or spec_helper.rb file:
+
+  require 'lindo'
+
+You may also have to extend the Lindo module from your test or spec
+helper if you use sessions in your integration tests:
+
+  session.extend Lindo
+
+== Usage
+
+Insert the vr method in your functional test immediately after an HTTP
+request has been sent:
+
+  def test_new
+    post :new
+    vr
+    assert_select "div[id=header]"
+  end
+
+vr attempts to open the response body in the default web browser. If you want
+to open the raw HTML in the default text editor instead, simply pass the :html
+symbol to the method:
+
+  def test_new
+    post :new
+    vr(:html)
+    ...
+  end
+
+By default, vr looks for an instance variable named @response and calls the #body
+method on it. If your page body is stored in a different variable, such as when
+testing a mailer, you can pass the raw HTML directly to vr and it will do the
+right thing:
+
+  def test_mailer
+    mail = Mailer.create_notification
+    vr(mail.body)
+    ...
+  end
+
+Note that to use the default web view, your Rails application must be running
+locally on port 3000. This will ensure that the page renders correctly with the
+appropriate images and stylesheets. The server doesn't need to be running if
+you use the HTML-only view.
+
+== Compatibility
+
+lindo requires OS X. Support for Windows is planned.
+
+test/spec and test/unit work fine with lindo. RSpec, however, tests views
+independently of controllers, so lindo won't work with it.
+
+== Running Unit Tests
+
+Use the rake command to run the unit tests for the plugin. The tests require
+that the Mocha gem be installed locally:
+
+  sudo gem install mocha
+
+== Resources
+
+Repository: http://github.com/adeptware/lindo/
+Blog: http://adeptware.com/blog
+Author: Adeptware, Inc.

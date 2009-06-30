@@ -11,7 +11,7 @@ module Lindo
           `gnome-open #{url}`
         elsif kde?
           `kfmclient openURL #{url}`
-        elsif generic-linux?
+        elsif generic_linux?
           `firefox #{url}` #not the default browser.
         else
           raise "Unrecognized OS. Browser can't be found."
@@ -31,7 +31,7 @@ module Lindo
         host.include?('mswin')
       end
       
-      def generic-linux?
+      def generic_linux?
         host.include?('linux')
       end
       

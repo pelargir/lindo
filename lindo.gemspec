@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "lindo"
-  s.version  = "0.5"
-  s.date     = "2008-08-10"
+  s.version  = "0.6"
+  s.date     = "2009-06-30"
   s.summary  = "Enables rendering of the body of an HTTP response from inside a functional test."
   s.email    = "contact@adeptware.com"
   s.homepage = "http://github.com/adeptware/lindo"

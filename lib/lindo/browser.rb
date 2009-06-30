@@ -8,7 +8,7 @@ module Lindo
         elsif windows?
           `'C:\Program Files\Internet Explorer\IEXPLORE.EXE' #{url}`
         elsif linux?
-          `kfmclient openURL #{url}`
+          `firefox #{url}`
         else
           raise "Unrecognized OS. Browser can't be found."
         end

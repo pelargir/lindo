@@ -8,7 +8,11 @@ module Lindo
         elsif windows?
           `'C:\Program Files\Internet Explorer\IEXPLORE.EXE' #{url}`
         elsif linux?
-          `firefox #{url}`
+          if Kernel.system("which gnome-open")
+            `gnome-open #{url}`
+          elsif Kernel.system("which kfmclient")
+            `kfmclient openURL #{url}`
+          end
         else
           raise "Unrecognized OS. Browser can't be found."
         end

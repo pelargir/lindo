@@ -1,10 +1,7 @@
 require 'test/unit'
 require 'fileutils'
-
 require 'rubygems'
 require 'mocha'
-
-RAILS_ROOT = '.'
 require 'lindo'
 
 class LindoTest < Test::Unit::TestCase

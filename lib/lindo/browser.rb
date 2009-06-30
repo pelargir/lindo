@@ -7,12 +7,12 @@ module Lindo
           `/usr/bin/open #{url}`
         elsif windows?
           `'C:\Program Files\Internet Explorer\IEXPLORE.EXE' #{url}`
-        elsif linux?
-          if Kernel.system("which gnome-open")
-            `gnome-open #{url}`
-          elsif Kernel.system("which kfmclient")
-            `kfmclient openURL #{url}`
-          end
+        elsif gnome?
+          `gnome-open #{url}`
+        elsif kde?
+          `kfmclient openURL #{url}`
+        elsif generic-linux?
+          `firefox #{url}` #not the default browser.
         else
           raise "Unrecognized OS. Browser can't be found."
         end
@@ -31,10 +31,17 @@ module Lindo
         host.include?('mswin')
       end
       
-      def linux?
+      def generic-linux?
         host.include?('linux')
       end
       
+      def gnome?
+        Kernel.system("which gnome-open")
+      end
+      
+      def kde?
+        Kernel.system("which kfmclient")
+      end
     end
   end
 end

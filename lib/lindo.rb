@@ -21,7 +21,8 @@ module Lindo
   end
   
   def create_tmp_dir
-    FileUtils.mkdir_p(TMP) unless File.exists?(TMP)
+    FileUtils.rm_r(TMP) if File.exists?(TMP)
+    FileUtils.mkdir_p(TMP)
   end
   
   def copy_assets

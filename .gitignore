@@ -1,3 +1,2 @@
-*.gem
-tmp
+pkg
 test/tmp

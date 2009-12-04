@@ -8,7 +8,7 @@ assert_select statements or just sanity check the output of the test.
   
 Install the gem directly:
 
-  sudo gem install adeptware-lindo --source=http://gems.github.com
+  sudo gem install lindo
 
 Or install the gem in your Rails project:
 

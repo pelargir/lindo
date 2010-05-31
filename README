@@ -6,21 +6,19 @@ assert_select statements or just sanity check the output of the test.
 
 == Installation
   
-Install the gem directly:
+Install the gem standalone:
 
   sudo gem install lindo
 
 Or install the gem in your Rails project:
 
-  script/plugin install git://github.com/adeptware/lindo.git
+  config.gem 'lindo' # add this line to environment.rb
+  rake gems:install
 
-Then require lindo in your test_helper.rb or spec_helper.rb file:
+You may have to require and extend the Lindo module from your test or
+spec helper if you use sessions in your integration tests:
 
   require 'lindo'
-
-You may also have to extend the Lindo module from your test or spec
-helper if you use sessions in your integration tests:
-
   session.extend Lindo
 
 == Usage
@@ -45,8 +43,8 @@ symbol to the method:
   end
 
 By default, vr looks for an instance variable named @response and calls the #body
-method on it. If your page body is stored in a different variable, such as when
-testing a mailer, you can pass the raw HTML directly to vr and it will do the
+method on it. If your page body is stored in a different variable (such as when
+testing a mailer) you can pass the raw HTML directly to vr and it will do the
 right thing:
 
   def test_mailer
@@ -55,17 +53,17 @@ right thing:
     ...
   end
 
-Note that to use the default web view, your Rails application must be running
-locally on port 3000. This will ensure that the page renders correctly with the
-appropriate images and stylesheets. The server doesn't need to be running if
-you use the HTML-only view.
-
 == Compatibility
 
-lindo requires OS X. Support for Windows is planned.
+Lindo works with test/spec, test/unit, RSpec, and Cucumber. When testing with
+RSpec, ensure your controllers are using integrate_views otherwise nothing will
+show up when the browser opens. To use Lindo with Cucumber, a custom step can
+be written. It could look something like this:
 
-test/spec and test/unit work fine with lindo. RSpec, however, tests views
-independently of controllers, so lindo won't work with it.
+  Then /^render the current page$/ do
+    extend Lindo
+    vr
+  end
 
 == Running Unit Tests
 

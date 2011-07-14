@@ -2,7 +2,7 @@ require 'test/unit'
 require 'lindo/browser'
 
 module Lindo
-  TMP = File.join(RAILS_ROOT, "tmp", "lindo")
+  TMP = File.join(Rails.root, "tmp", "lindo")
   RESPONSE_TXT = File.join(TMP, "response.txt")
   RESPONSE_HTML = File.join(TMP, "response.html")
   ASSETS = %w(images stylesheets javascripts)
@@ -27,7 +27,7 @@ module Lindo
   
   def copy_assets
     ASSETS.each do |e|
-      dir = File.join(RAILS_ROOT, "public", e)
+      dir = File.join(Rails.root, "public", e)
       FileUtils.cp_r(dir, TMP) if File.exists?(dir)
     end
   end

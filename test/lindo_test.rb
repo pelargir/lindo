@@ -2,6 +2,8 @@ require 'test/unit'
 require 'fileutils'
 require 'rubygems'
 require 'mocha'
+
+class Rails; def self.root; '.'; end; end
 require 'lindo'
 
 class LindoTest < Test::Unit::TestCase
@@ -22,25 +24,25 @@ class LindoTest < Test::Unit::TestCase
   end
   
   def test_vr
-    File.expects(:open).with(RESPONSE_HTML, File::CREAT|File::TRUNC|File::WRONLY)
+    File.expects(:open).with("./tmp/lindo/response.html", File::CREAT|File::TRUNC|File::WRONLY)
     Browser.expects(:open).with("./tmp/lindo/response.html")
     vr
   end
   
   def test_vr_in_web
-    File.expects(:open).with(RESPONSE_HTML, File::CREAT|File::TRUNC|File::WRONLY)
+    File.expects(:open).with("./tmp/lindo/response.html", File::CREAT|File::TRUNC|File::WRONLY)
     Browser.expects(:open).with("./tmp/lindo/response.html")
     vr(:web)
   end
   
   def test_vr_in_html
-    File.expects(:open).with(RESPONSE_TXT, File::CREAT|File::TRUNC|File::WRONLY)
+    File.expects(:open).with("./tmp/lindo/response.txt", File::CREAT|File::TRUNC|File::WRONLY)
     Browser.expects(:open).with("./tmp/lindo/response.txt")
     vr(:html)
   end
   
   def test_vr_with_raw_html
-    File.expects(:open).with(RESPONSE_HTML, File::CREAT|File::TRUNC|File::WRONLY)
+    File.expects(:open).with("./tmp/lindo/response.html", File::CREAT|File::TRUNC|File::WRONLY)
     Browser.expects(:open).with("./tmp/lindo/response.html")
     vr("<html></html>")
   end

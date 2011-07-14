@@ -2,7 +2,7 @@ require 'test/unit'
 require 'rubygems'
 require 'mocha'
 
-Rails.root = '.'
+class Rails; def self.root; '.'; end; end
 require 'lindo'
 
 class BrowserTest < Test::Unit::TestCase

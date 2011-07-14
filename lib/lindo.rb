@@ -2,9 +2,6 @@ require 'test/unit'
 require 'lindo/browser'
 
 module Lindo
-  TMP = File.join(Rails.root, "tmp", "lindo")
-  RESPONSE_TXT = File.join(TMP, "response.txt")
-  RESPONSE_HTML = File.join(TMP, "response.html")
   ASSETS = %w(images stylesheets javascripts)
 
   def vr(format=:web)
@@ -12,23 +9,23 @@ module Lindo
     copy_assets
     if format.is_a?(Symbol)
       case format
-        when :web  then open_from_file(@response.body, RESPONSE_HTML)
-        when :html then open_from_file(@response.body, RESPONSE_TXT)
+        when :web  then open_from_file(@response.body, response_html)
+        when :html then open_from_file(@response.body, response_txt)
       end
     else
-      open_from_file(format, RESPONSE_HTML)
+      open_from_file(format, response_html)
     end
   end
   
   def create_tmp_dir
-    FileUtils.rm_r(TMP) if File.exists?(TMP)
-    FileUtils.mkdir_p(TMP)
+    FileUtils.rm_r(tmp_dir) if File.exists?(tmp_dir)
+    FileUtils.mkdir_p(tmp_dir)
   end
   
   def copy_assets
     ASSETS.each do |e|
-      dir = File.join(Rails.root, "public", e)
-      FileUtils.cp_r(dir, TMP) if File.exists?(dir)
+      dir = File.join(::Rails.root, "public", e)
+      FileUtils.cp_r(dir, tmp_dir) if File.exists?(dir)
     end
   end
 
@@ -40,6 +37,18 @@ module Lindo
   
   def scrub(data)
     ASSETS.each { |e| data.gsub!("=\"/#{e}/", "=\"#{e}/") }
+  end
+  
+  def tmp_dir
+    File.join(::Rails.root, "tmp", "lindo")
+  end
+  
+  def response_txt
+    File.join(tmp_dir, "response.txt")
+  end
+  
+  def response_html
+    File.join(tmp_dir, "response.html")
   end
 end
 

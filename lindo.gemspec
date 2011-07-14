@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adeptware"]
-  s.date = %q{2009-12-03}
+  s.date = %q{2011-07-14}
   s.description = %q{Enables rendering of the body of an HTTP response from inside a functional test.}
   s.email = %q{contact@adeptware.com}
   s.extra_rdoc_files = [
